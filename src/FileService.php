@@ -1,6 +1,6 @@
 <?php
 
-namespace Devvime\KiichiPhpEngine;
+namespace Devvime\Kiichi\Engine;
 
 class FileService {
 

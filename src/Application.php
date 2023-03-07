@@ -1,9 +1,9 @@
 <?php
 
-namespace Devvime\KiichiPhpEngine;
+namespace Devvime\Kiichi\Engine;
 
-use Devvime\KiichiPhpEngine\HttpService;
-use Devvime\KiichiPhpEngine\ControllerService;
+use Devvime\Kiichi\Engine\HttpService;
+use Devvime\Kiichi\Engine\ControllerService;
 
 class Application {
 

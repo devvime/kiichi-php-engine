@@ -1,6 +1,6 @@
 <?php
 
-namespace Devvime\KiichiPhpEngine;
+namespace Devvime\Kiichi\Engine;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

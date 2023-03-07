@@ -1,8 +1,8 @@
 <?php
 
-namespace Devvime\KiichiPhpEngine;
+namespace Devvime\Kiichi\Engine;
 
-use Devvime\KiichiPhpEngine\ViewService;
+use Devvime\Kiichi\Engine\ViewService;
 use Firebase\JWT\JWT;
 
 class ControllerService {

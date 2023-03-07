@@ -1,0 +1,25 @@
+{
+  "name": "devvime/kiichi-php-engine",
+  "description": "Simple Package PHP for developing web API`s with Kiichi PHP.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Victor Alves Mendes",
+      "email": "victor@estilodev.com.br"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Devvime\\KiichiPhpEngine\\": "src/",
+      "App\\": "App/"
+    }
+  },
+  "require": {
+    "PHP": ">=7.0.0",
+    "firebase/php-jwt": "^5.2",
+    "phpmailer/phpmailer": "^6.1",
+    "rain/raintpl": "3.0.0",
+    "vlucas/phpdotenv": "^5.4",
+    "illuminate/database": "^9.50"
+  }
+}

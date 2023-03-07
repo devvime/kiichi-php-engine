@@ -10,12 +10,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Devvime\\KiichiPhpEngine\\": "src/",
+      "Devvime\\Kiichi\\Engine\\": "src/",
       "App\\": "App/"
     }
   },
   "require": {
-    "PHP": ">=7.0.0",
+    "PHP": ">=8.1.0",
     "firebase/php-jwt": "^5.2",
     "phpmailer/phpmailer": "^6.1",
     "rain/raintpl": "3.0.0",

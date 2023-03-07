@@ -156,3 +156,41 @@ Start routes
 ```php
 $app->run();
 ```
+
+#### Render HTML file
+
+To render an HTML file just use $res->render('file-name');
+no need to add .html in file name
+
+```php
+$app->get('/user', function($req, $res) use($app) {
+    $res->render('html-file-name');
+});
+```
+
+To render an HTML file by sending an array of data use $res->render('file-name');
+
+```php
+$app->get('/user', function($req, $res) use($app) {
+    $res->render('html-file-name', [
+        "name"=>$user->name,
+        "email"=>$user->email,
+        "product"=>$productArray
+    ]);
+});
+```
+
+To receive the data sent to the HTML file use {{ key }} or {{ key.object.name }}
+
+```html
+<div class="card">
+    <h4>{{ name }}</h4>
+    <p>{{ email }}</p>
+    <hr/>
+    <p>{{ product.title }}</p>
+    <p>{{ product.description }}</p>
+    <p>{{ product.price }}</p>
+</div>
+```
+
+For more details, see the documentation at [RainTPL 3](https://github.com/feulf/raintpl3)

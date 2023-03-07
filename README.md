@@ -46,7 +46,22 @@ $app->get('/', function($req, $res) {
 });
 ```
 
-Route and Class
+#### Route and Class
+
+Folder structure for using classes
+
+```
+├── App
+|  ├── Controllers
+│  |  └── ProductController.php
+|  |── Models
+│  |  └── Product.php
+|  |── Middlewares
+│  |  └── ExempleMiddleware.php
+```
+
+Class name must contain the word Controller, for example: UserController.php
+
 
 ```php
 $app->get('/:id', 'UserController@find');
@@ -72,7 +87,9 @@ $app->group('/user', function() use($app) {
 });
 ```
 
-Route and Middleware
+#### Route and Middleware
+
+Middleware Class name must contain the word Middleware, for example: AuthMiddleware.php
 
 ```php
 

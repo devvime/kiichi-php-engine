@@ -24,19 +24,12 @@ composer require devvime/kiichi-php-engine
 
 ***
 
-### Routes
-
-The project's routes are located inside the Routes.php file inside the App folder.
-
-```
-├── App
-│  └── Routes.php
-```
-
 #### Configuration
 
 ```php
 <?php
+
+require_once(__DIR__.'vendor/autoload.php');
 
 use Devvime\KiichiPhpEngine\Application;
 

@@ -1,6 +1,7 @@
 {
   "name": "devvime/kiichi-php-engine",
   "description": "Simple Package PHP for developing web API`s with Kiichi PHP.",
+  "version": "1.0.5",
   "license": "MIT",
   "authors": [
     {

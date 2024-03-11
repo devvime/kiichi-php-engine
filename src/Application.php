@@ -47,7 +47,7 @@ class Application {
         } else {
             echo json_encode([
                 "error"=>404,
-                "meaage"=>"App/Middlewares/" . $middleware . ".php is not found!"
+                "message"=>"App/Middlewares/" . $middleware . ".php is not found!"
             ]);
             exit;
         }
@@ -119,7 +119,7 @@ class Application {
 
     public function group($name, $function, $middleware = null)
     {
-        $this->group = $name;
+        if (strpos($this->path, $name) !== false) $this->group = $name;
         if (strpos($this->path, $this->group) !== false) {            
             if ($middleware !== null) {
                 $this->middleware($middleware);

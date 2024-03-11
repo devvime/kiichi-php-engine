@@ -11,22 +11,24 @@ class ViewService {
     private $defaults = [
         "header"=>true,
         "footer"=>true,
-        "headerData"=>[]
+        "headerData"=>[
+            "author"=>"Name here",
+            "description"=>"Description here"
+        ]
     ];
 
     public function __construct($opts = [])
     {
-        $tpl_dir = VIEWS_DIR;
         $this->options = array_merge($this->defaults, $opts);
+        $this->tpl = new Tpl();
         $config = array(
-            "tpl_dir"       => $tpl_dir,
+            "tpl_dir"       => VIEWS_DIR,
             "cache_dir"     => VIEWS_CACHE_DIR,
             "debug"         => false
         );
         Tpl::configure($config);
         $this->tpl = new Tpl;
-        $this->setData($this->options["headerData"]);
-        if ($this->options["header"] === true) $this->render("header", $this->defaults['headerData']);
+        if ($this->options["header"]) $this->render("header", $this->options['headerData']);
     }
 
     private function setData($data = array())
@@ -36,15 +38,15 @@ class ViewService {
         }
     }
 
-    public function render($name, $data = array(), $retunrHTML = false)
+    public function render($name, $data = array(), $returnHTML = false)
     {
         $this->setData($data);
-        return $this->tpl->draw($name, $retunrHTML);
+        return $this->tpl->draw($name, $returnHTML);
     }
 
     public function __destruct()
     {
-       if ($this->options["footer"] === true) $this->tpl->draw("footer");
+       if ($this->defaults["footer"] === true) $this->tpl->draw("footer");
     }
 
 }

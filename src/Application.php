@@ -119,7 +119,7 @@ class Application {
 
     public function group($name, $function, $middleware = null)
     {
-        if (strpos($this->path, $name) !== false) $this->group = $name;
+        $this->group = $name;
         if (strpos($this->path, $this->group) !== false) {            
             if ($middleware !== null) {
                 $this->middleware($middleware);

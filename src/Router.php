@@ -5,7 +5,7 @@ namespace Devvime\Kiichi\Engine;
 use Devvime\Kiichi\Engine\HttpService;
 use Devvime\Kiichi\Engine\ControllerService;
 
-class Application {
+class Router {
 
     public $path;
     public $http;
@@ -25,14 +25,14 @@ class Application {
 
     public function getController($controller) 
     {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../App/Controllers/{$controller}.php")) {
-            require_once($_SERVER['DOCUMENT_ROOT'] . "/../App/Controllers/{$controller}.php");
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../src/Controllers/{$controller}.php")) {
+            require_once($_SERVER['DOCUMENT_ROOT'] . "/../src/Controllers/{$controller}.php");
             $class = "Devvime\\Kiichi\\Controllers\\". $controller;
             return new $class();
         } else {
             echo json_encode([
                 "error"=>404,
-                "message"=>"App/Controllers/{$controller}.php is not found!"
+                "message"=>"src/Controllers/{$controller}.php is not found!"
             ]);
             exit;
         }
@@ -40,14 +40,14 @@ class Application {
 
     public function getMiddleware($middleware) 
     {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../App/Middlewares/{$middleware}.php")) {
-            require_once($_SERVER['DOCUMENT_ROOT'] . "/../App/Middlewares/{$middleware}.php");
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../src/Middlewares/{$middleware}.php")) {
+            require_once($_SERVER['DOCUMENT_ROOT'] . "/../src/Middlewares/{$middleware}.php");
             $class = "Devvime\\Kiichi\\Middlewares\\". $middleware;
             return new $class();
         } else {
             echo json_encode([
                 "error"=>404,
-                "message"=>"App/Middlewares/" . $middleware . ".php is not found!"
+                "message"=>"src/Middlewares/" . $middleware . ".php is not found!"
             ]);
             exit;
         }

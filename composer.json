@@ -1,22 +1,21 @@
 {
   "name": "devvime/kiichi-php-engine",
   "description": "Simple Package PHP for developing web API`s with Kiichi PHP.",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "authors": [
     {
-      "name": "Victor Alves Mendes",
-      "email": "victor@estilodev.com.br"
+      "name": "Victor Mendes",
+      "email": "victor@susumo.com.br"
     }
   ],
   "autoload": {
     "psr-4": {
-      "Devvime\\Kiichi\\Engine\\": "src/",
-      "App\\": "App/"
+      "Devvime\\Kiichi\\Engine\\": "src/"
     }
   },
   "require": {
-    "PHP": ">=8.1.0",
+    "PHP": ">=8.2.0",
     "firebase/php-jwt": "^5.2",
     "phpmailer/phpmailer": "^6.1",
     "rain/raintpl": "3.0.0",

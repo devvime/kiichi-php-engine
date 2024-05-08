@@ -6,7 +6,7 @@ Simple Package PHP for developing web API`s with Kiichi PHP.
 
 ### Specifications and Dependencies
 
-- **PHP Version** >= 8.1.0
+- **PHP Version** >= 8.2.0
 - [Composer](https://getcomposer.org/)
 - [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 - [Eloquent ORM](https://laravel-docs-pt-br.readthedocs.io/en/latest/eloquent/)
@@ -31,9 +31,9 @@ composer require devvime/kiichi-php-engine
 
 require_once(__DIR__.'vendor/autoload.php');
 
-use Devvime\KiichiPhpEngine\Application;
+use Devvime\Kiichi\Engine\Router;
 
-$app = new Application();
+$router = new Router();
 ```
 
 #### Creating routes
@@ -41,7 +41,7 @@ $app = new Application();
 Route and Function
 
 ```php
-$app->get('/', function($req, $res) {
+$router->get('/', function($req, $res) {
     $res->json(['title'=>'Simple CRUD PHP']);
 });
 ```
@@ -51,7 +51,7 @@ $app->get('/', function($req, $res) {
 Folder structure for using classes
 
 ```
-├── App
+├── src
 |  ├── Controllers
 │  |  └── ProductController.php
 |  |── Models
@@ -64,26 +64,26 @@ Class name must contain the word Controller, for example: UserController.php
 
 
 ```php
-$app->get('/:id', 'UserController@find');
+$router->get('/:id', 'UserController@find');
 ```
 
 Group of routes and parameters in URL
 
 ```php
-$app->group('/hello', function() use($app) {
-    $app->get('/:name', function($req, $res) {
+$router->group('/hello', function() use($router) {
+    $router->get('/:name', function($req, $res) {
         $res->render('html-file-name', [
             "name"=>$req->params->name            
         ]);
     });
 });
 
-$app->group('/user', function() use($app) {
-    $app->get('', 'UserController@index');
-    $app->get('/:id', 'UserController@find');
-    $app->post('', 'UserController@store');
-    $app->put('/:id', 'UserController@update');
-    $app->delete('/:id', 'UserController@destroy');
+$router->group('/user', function() use($router) {
+    $router->get('', 'UserController@index');
+    $router->get('/:id', 'UserController@find');
+    $router->post('', 'UserController@store');
+    $router->put('/:id', 'UserController@update');
+    $router->delete('/:id', 'UserController@destroy');
 });
 ```
 
@@ -94,33 +94,33 @@ Middleware Class name must contain the word Middleware, for example: AuthMiddlew
 ```php
 
 // Middleware in  Function
-$app->get('/:id', 'UserController@find', function() {
+$router->get('/:id', 'UserController@find', function() {
     // Middleware code...
 });
 
 // Middleware in Class
-$app->get('/:id', 'UserController@find', 'UserMiddleware@verifyAuthToken');
+$router->get('/:id', 'UserController@find', 'UserMiddleware@verifyAuthToken');
 
 // Middleware Function in Route Group
 
-$app->group('/user', function() use($app) {
-    $app->get('', 'UserController@index');
-    $app->get('/:id', 'UserController@find');
-    $app->post('', 'UserController@store');
-    $app->put('/:id', 'UserController@update');
-    $app->delete('/:id', 'UserController@destroy');
+$router->group('/user', function() use($router) {
+    $router->get('', 'UserController@index');
+    $router->get('/:id', 'UserController@find');
+    $router->post('', 'UserController@store');
+    $router->put('/:id', 'UserController@update');
+    $router->delete('/:id', 'UserController@destroy');
 }, function() {
     // Middleware code...
 });
 
 // Middleware Class in Route Group
 
-$app->group('/user', function() use($app) {
-    $app->get('', 'UserController@index');
-    $app->get('/:id', 'UserController@find');
-    $app->post('', 'UserController@store');
-    $app->put('/:id', 'UserController@update');
-    $app->delete('/:id', 'UserController@destroy');
+$router->group('/user', function() use($router) {
+    $router->get('', 'UserController@index');
+    $router->get('/:id', 'UserController@find');
+    $router->post('', 'UserController@store');
+    $router->put('/:id', 'UserController@update');
+    $router->delete('/:id', 'UserController@destroy');
 }, 'AuthMiddleware@verifyToken');
 ```
 
@@ -129,7 +129,7 @@ $app->group('/user', function() use($app) {
 Request data in URL Query ex: http://api.server.com/user?name=steve
 
 ```php
-$app->post('/user', function($req, $res) {
+$router->post('/user', function($req, $res) {
     $name = $req->query->name;
 });
 ```
@@ -137,7 +137,7 @@ $app->post('/user', function($req, $res) {
 Request post data JSON 
 
 ```php
-$app->post('/user', function($req, $res) {
+$router->post('/user', function($req, $res) {
     $name = $req->body->name;
     $email = $req->body->email;
 });
@@ -146,7 +146,7 @@ $app->post('/user', function($req, $res) {
 Request params in URL
 
 ```php
-$app->put('/:id', function($req, $res) {
+$router->put('/:id', function($req, $res) {
     $id = $req->params->id;
 });
 ```
@@ -154,7 +154,7 @@ $app->put('/:id', function($req, $res) {
 Start routes
 
 ```php
-$app->run();
+$router->run();
 ```
 
 #### Render HTML file
@@ -163,7 +163,7 @@ To render an HTML file just use $res->render('file-name');
 no need to add .html in file name
 
 ```php
-$app->get('/user', function($req, $res) use($app) {
+$router->get('/user', function($req, $res) use($router) {
     $res->render('html-file-name');
 });
 ```
@@ -171,7 +171,7 @@ $app->get('/user', function($req, $res) use($app) {
 To render an HTML file by sending an array of data use $res->render('file-name');
 
 ```php
-$app->get('/user', function($req, $res) use($app) {
+$router->get('/user', function($req, $res) use($router) {
     $res->render('html-file-name', [
         "name"=>$user->name,
         "email"=>$user->email,

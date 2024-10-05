@@ -67,4 +67,9 @@ class ControllerService {
         return JWT::decode($value, SECRET, array('HS256'));
     }
 
+    public function version()
+    {
+        return round(microtime(true) * 1000);
+    }
+
 }

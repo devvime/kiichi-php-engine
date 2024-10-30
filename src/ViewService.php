@@ -28,7 +28,7 @@ class ViewService {
         );
         Tpl::configure($config);
         $this->tpl = new Tpl;
-        if ($this->options["header"]) $this->render("header", $this->options['headerData']);
+        if ($this->options["header"]) $this->render("default/header", $this->options['headerData']);
     }
 
     private function setData($data = array())
@@ -46,7 +46,7 @@ class ViewService {
 
     public function __destruct()
     {
-       if ($this->defaults["footer"] === true) $this->tpl->draw("footer");
+       if ($this->defaults["footer"] === true) $this->tpl->draw("default/footer");
     }
 
 }

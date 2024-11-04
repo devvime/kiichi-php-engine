@@ -159,6 +159,19 @@ $router->run();
 
 #### Render HTML file
 
+Required Settings
+
+```php
+#Views Settings
+const VIEWS_DIR = __ROOT__.'/src/Views/';
+const VIEWS_CACHE_DIR = __ROOT__.'/src/Views/default/cache/';
+const HEADER_DATA = [
+  "author" => "Authro here...", 
+  "description" => "Description here..."
+];
+const VERSION = '1.0.0';
+```
+
 To render an HTML file just use $res->render('file-name');
 no need to add .html in file name
 

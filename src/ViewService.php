@@ -9,12 +9,10 @@ class ViewService {
     private $tpl;
     private $options;
     private $defaults = [
-        "header"=>true,
-        "footer"=>true,
-        "headerData"=>[
-            "author"=>"Name here",
-            "description"=>"Description here"
-        ]
+        "header" => true,
+        "footer" => true,
+        "headerData" => HEADER_DATA,
+        "version" => VERSION
     ];
 
     public function __construct($opts = [])

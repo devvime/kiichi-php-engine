@@ -13,6 +13,7 @@ class Router {
     public $req;
     public $res;
     public $routes = [];
+    public $groupRoutes = [];
     public $group;
     public $middleware;
 
@@ -94,7 +95,7 @@ class Router {
             $callback($this->req, $this->res);
             exit;
         }
-        array_push($this->routes, $route);
+        $this->routes[] = $route;
     }
 
     public function get($route, $controller, $middleware = null)    
@@ -119,15 +120,18 @@ class Router {
 
     public function group($name, $function, $middleware = null)
     {
+        $previousGroup = $this->group; 
         $this->group = $name;
-        if (strpos($this->path, $this->group) !== false) {            
+
+        if (strpos($this->path, $this->group) === 0) {            
             if ($middleware !== null) {
                 $this->middleware($middleware);
             }
             $callback = $function;     
             $callback($this->req, $this->res);
-            exit;
-        }     
+        }
+
+        $this->group = $previousGroup; // restore previous group after group call
     }
 
     public function middleware($callback)
@@ -153,16 +157,18 @@ class Router {
     public function run()
     {
         foreach ($this->routes as $route) {
-            if ($this->getParams($route, $this->http) !== $this->path) {
-                echo json_encode([
-                    "status"=>404,
-                    "message"=>"Error: Endpoint is not found!",
-                    "path"=>$this->path,
-                    "method"=>$this->http
-                ]);
-                exit;
+            if ($this->getParams($route, $this->http) === $this->path) {
+                return; // route found, so return without error
             }
-        }        
+        }
+
+        echo json_encode([
+            "status"=>404,
+            "message"=>"Error: Endpoint is not found!",
+            "path"=>$this->path,
+            "method"=>$this->http
+        ]);
+        exit;
     }
 
 }

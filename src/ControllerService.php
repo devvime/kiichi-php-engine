@@ -72,4 +72,30 @@ class ControllerService {
         return round(microtime(true) * 1000);
     }
 
+    public function paginate($req, $controller) {
+        $perPage = isset($req->query->perPage) ? (int)$req->query->perPage : 5;
+        $currentPage = isset($req->query->page) ? (int)$req->query->page : 1;
+        $offset = ($currentPage - 1) * $perPage;
+        $totalResult = $controller->count();
+        $totalPages = ceil($totalResult / $perPage);
+        $result = $controller->limit($perPage)->offset($offset)->get();
+        return [
+          "status" => 200,
+          "success" => true,
+          "data" => $result,
+          "pagination" => [
+            "totalPages" => $totalPages,
+            "totalResult" => $totalResult,
+            "currentPage" => $currentPage,
+            "buttons" => $this->getSurroundingElements(range(1, $totalPages), $currentPage)
+          ]
+        ];
+      }
+    
+      public function getSurroundingElements($array, $activeIndex) {
+        $start = max(0, $activeIndex - 3);
+        $end = min(count($array) - 1, $activeIndex + 3);    
+        return array_slice($array, $start, $end - $start + 1);
+      }
+
 }

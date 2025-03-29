@@ -26,8 +26,8 @@ class Router {
 
     public function getController($controller) 
     {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../src/Controllers/{$controller}.php")) {
-            require_once($_SERVER['DOCUMENT_ROOT'] . "/../src/Controllers/{$controller}.php");
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../application/Controllers/{$controller}.php")) {
+            require_once($_SERVER['DOCUMENT_ROOT'] . "/../application/Controllers/{$controller}.php");
             $class = "Devvime\\Kiichi\\Controllers\\". $controller;
             return new $class();
         } else {
@@ -41,8 +41,8 @@ class Router {
 
     public function getMiddleware($middleware) 
     {
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../src/Middlewares/{$middleware}.php")) {
-            require_once($_SERVER['DOCUMENT_ROOT'] . "/../src/Middlewares/{$middleware}.php");
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/../application/Middlewares/{$middleware}.php")) {
+            require_once($_SERVER['DOCUMENT_ROOT'] . "/../application/Middlewares/{$middleware}.php");
             $class = "Devvime\\Kiichi\\Middlewares\\". $middleware;
             return new $class();
         } else {
